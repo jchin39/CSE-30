@@ -1,0 +1,4 @@
+1. When I type g++ main -o main, i would replace main with cselab
+2. the compilation is terminated
+3. Prefix every standard library function with "std::"
+4. Cout prints which ever variables after it into the terminal, endl creates a new line in the terminal after the cout.
