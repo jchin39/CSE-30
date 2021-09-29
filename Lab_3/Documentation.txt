@@ -1,0 +1,6 @@
+temp = myarray[i];  
+myarray[i]=myarray[pos]; 
+myarray[pos] = temp; 
+https://www.softwaretestinghelp.com/selection-sort/
+
+Used to find the code to swap.
