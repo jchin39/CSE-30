@@ -1,0 +1,9 @@
+Create the void combineStr function
+take in user-inputed string and number
+put string into array as many times as the number
+cout it in the same for loop
+
+Create int main function
+collect the string and times for the string.
+check if input of times is 0
+call combineStr.
