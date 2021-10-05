@@ -2,37 +2,35 @@
 #include <string>
 using namespace std;
 void sortArr(bool stat, int arr[], int size) {   
+    //ascending
     if (stat == 1) {
-        for (int i = size -1; i >= 0; i--) {
-            int Max = i;
-            for (int j = 0; j < i; j++) {
-                if (arr[j] > arr[Max]) {
-                    Max = j;
-                }
+        int saved, j;
+        for (int i = 1; i < size; i++) {
+            saved = arr[i];
+            j = i;
+            while (j > 0 && arr[j-1] > saved) {
+                arr[j] = arr[j-1];
+                j = j-1;
             }
-                //swapping maximum with current indexed value
-                int temp = arr[Max];
-                arr[Max] = arr[i];
-                arr[i] = temp;
+            arr[j] = saved;
         }
         cout << "This is the sorted array in ascending order: " << endl;
         for (int i = 0; i < size; i++) {
             cout << " " << arr[i] << " ";
         }
     }
+    //descending
     else {
-        for (int i = 0; i < size-1; i++) {
-        int Min = i;
-        for (int j = i + 1; j < size; j++) {
-            if (arr[Min] < arr[j]) {
-                Min = j;
+        int saved, j;
+        for (int i = 1; i < size; i++) {
+            saved = arr[i];
+            j = i;
+            while (j > 0 && arr[j-1] < saved) {
+                arr[j] = arr[j-1];
+                j = j-1;
             }
+            arr[j] = saved;
         }
-            // swapping the smallest value in the array with the current indexed value.
-            int temp = arr[Min];
-            arr[Min] = arr[i];
-            arr[i] = temp;
-    }
         //print the array
         cout << "This is the sorted array in descending order: " << endl;
         for (int i = 0; i < size; i++) {
@@ -40,8 +38,6 @@ void sortArr(bool stat, int arr[], int size) {
         }
     }
 }
-    
-
 int main() {
     int size;
     bool order;

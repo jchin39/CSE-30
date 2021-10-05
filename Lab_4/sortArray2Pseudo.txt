@@ -1,0 +1,14 @@
+void sortArr takes in array, array size, and user choice of descending or ascending
+
+Descending
+traverse the array starting from the 2nd value to the end.
+Put current value of I, (arr[1]) into a variable used to compare it to the previous value.
+initialize  the index of the 2nd array (j) to the same as i.
+Compare the saved value to the value one index before it, which is why we initialize the loop at the 2nd value in the array.
+if the value before the saved value is smaller, the smaller one is swapped with the saved value. (arr[j] = arr[j-1])
+The index of j is set back one, so if the value now at arr[j] is still smaller than the one before it in its new position, it will be swapped again. (While arr[j-1] < saved.)
+if the value before the saved value is no longer smaller, that value becomes the saved value. arr[j] = saved. (in this case j = j-1)
+repeat.
+
+Ascending.
+The same exact code, except when comparing the saved value, you see if it is larger than the value before it.

@@ -1,0 +1,29 @@
+void sortArr
+Using the maximum to traverse the array
+Start with if statements discerning whether or not the array is ascending or descending.
+Ascending:
+traverse the array from the last value to the initial value (i = size -1 --> i = 0)
+put the location of the first (last value in the array) value of i into a Max variable. (Max = i)
+Use a second loop (index of j) to compare all the values of the array with the first value of the array.
+If a value is found which is bigger than MAX, that value becomes the stored maximum and the new maximum swaps places with the old one.
+To do this:
+Replace the location of the old max with the new one. (Max = j)
+Put that value into a temporary variable int temp = arr[max]
+replace the current indexed variable (The last one) with the current maximum (Arr[Max] = arr[i])
+this value becomes the temporary variable. (arr[i] = temp)
+The maximum value is now at the back of the array.
+Repeat this until the array is sorted (when i = 0)
+
+Using minimum to traverse the array
+Descending:
+traverse the array from the initial value to the last. (i = 0 --> i < size)
+Save the first value as the current minimum (min = i)
+Use 2nd for loop to compare all values in array to current current one. (j = i + 1 --> size)
+if smaller value is found then replace the current value of i with the smallest value in the array (min = j)
+to do this:
+replace location of old min with new min.
+
+SAME SWAP CODE AS DESCENDING (with exception of max --> min).
+
+print array.
+all this in sortArr and used individually depending on user choice of ascending or descending.
