@@ -1,0 +1,9 @@
+The general idea of this is to half the array each time the function calls upon itself.
+To do this, the function needs the initial index, the last, the key, and of course the array.
+The array is halved every time the key is compared with the middle value of the array.
+Pass in values to function
+Create the middle by subtracting the initial index from the size, dividing that by two, then adding the initial index back in.
+Then, compare the value at the middle index to the key. If it is the same, the right index is found.
+if it is smaller, the size becomes the middle index -1(1 before the key)
+If the middle value is larger, the initial index becomes the middle +1 (1 after the key)
+this repeats until the value is found. If it is not, -1 is returned.

@@ -1,0 +1,2 @@
+Middle math: int mid = min + (size - min)/2;
+Geeks for geeks.

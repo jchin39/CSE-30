@@ -1,0 +1,10 @@
+The idea is the same as binary recursive, except for it is done in a loop.
+The passed arguments are the same.
+The difference is the loop.
+Iterate throughout the loop (initial array index to size - 1)
+Same calculation for the middle as recursive.
+With this, we are directly moving the index of the array with the same checks as recursive.
+If the middle is the same as the key, value is found
+If the middle is smaller, set the size to 1 less than the middle.
+if the middle is larger, set the initial to 1 more than the middle.
+The next time the loop goes through, the same check which was passed in the first iteration will be repeatedly passed until the value is found.
