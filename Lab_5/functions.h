@@ -106,8 +106,10 @@ int checkArraySort(string A[], int array_size) {
     if (count2 == array_size-1) {
         return -1;
     }
+    else {
     cout << "Not sorted!" << endl;
-    return 0;
+    exit(0);
+    }
 }
 
 #endif

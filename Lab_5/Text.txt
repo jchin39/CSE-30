@@ -6,3 +6,12 @@ Gravity
 Dice
 Crab
 Apple
+
+Apple
+Crab
+Dice
+Gravity
+Jelly
+Peanutbutter
+Rescue
+Word

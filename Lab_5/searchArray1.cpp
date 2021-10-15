@@ -4,18 +4,33 @@
 #include "functions.h"
 
 using namespace std;
-int binarySearchR(string A[], int min, int size, string key) {
-
-    int i = min + (size - min)/2;
-    if (A[i] == key) {
-        return i;
+int binarySearchR(string A[], int min, int size, string key, int status) {
+    if (status == -1) {
+        int i = min + (size - min)/2;
+        if (A[i] == key) {
+           return i;
+        }
+        if (A[i] < key) {
+            return binarySearchR(A, min, i - 1, key, status);
+        }
+        if (A[i] > key) {
+            cout << A[i];
+            return binarySearchR(A, i + 1, size, key, status);
     }
-    if (A[i] < key) {
-        return binarySearchR(A, min, i - 1, key);
+    return -1;
     }
-    if (A[i] > key) {
-        cout << A[i];
-        return binarySearchR(A, i + 1, size, key);
+    if (status == 1) {
+        int i = min + (size - min)/2;
+        if (A[i] == key) {
+           return i;
+        }
+        if (A[i] < key) {
+            return binarySearchR(A, i+1, size, key, status);
+        }
+        if (A[i] > key) {
+            cout << A[i];
+            return binarySearchR(A, min, i-1, key, status);
+        }
     }
     return -1;
 }
@@ -28,7 +43,7 @@ int main () {
     checkArraySort(A,array_size);
     cout << "Input search key k: ";
     cin >> key;
-    int index = binarySearchR(A, 0, array_size-1, key);
+    int index = binarySearchR(A, 0, array_size-1, key,  checkArraySort(A,array_size));
     if ( index == -1) {
         cout << "The key k was not found in the array!" << endl;
     }
