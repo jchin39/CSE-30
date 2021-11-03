@@ -1,106 +1,113 @@
 #include <iostream>
-#include <fstream>
 #include <string>
 #include <iomanip>
+
 using namespace std;
 
-struct Time
-{
-    int hours;
-    int minutes;
-    int seconds;
-};
+struct Time{
+    int hour;
+    int minute;
+    int second;
+} temp, start, finish; 
 
 bool getTimeFromUser(Time &temp, string usrTime) {
-string usrHours = usrTime.substr(0,2);
-string usrMinutes = usrTime.substr(3,2);
-string usrSeconds = usrTime.substr(6,7);
 
-int numHours = atoi(usrHours.c_str());
-int numMinutes = atoi(usrMinutes.c_str());
-int numSeconds = atoi(usrSeconds.c_str());
+string usrHour = usrTime.substr(0,2);
+string usrMinute = usrTime.substr(3,2);
+string usrSecond = usrTime.substr(6,7);
 
-if (numHours < 0 || numHours > 24) {
+int numHour = atoi(usrHour.c_str());
+int numMinute = atoi(usrMinute.c_str());
+int numSecond = atoi(usrSecond.c_str());
+
+if (numHour < 0 || numHour > 24) {
     return false;
 }
-if (numMinutes < 0 || numMinutes > 60) {
+if (numMinute < 0 || numMinute > 60) {
     return false; 
 }
-if (numSeconds < 0 || numSeconds > 60) {
+if (numSecond < 0 || numSecond > 60) {
     return false;
 }
-temp.hours = numHours;
-temp.minutes = numMinutes;
-temp.seconds = numSeconds;
+temp.hour = numHour;
+temp.minute = numMinute;
+temp.second = numSecond;
 return true;
 }
 
-void print24hour (Time start, Time end) {
-    cout << "The lecture starts at " ;
-    if (start.hours < 10) {
+void print24Hour(Time start, Time finish){
+    cout << "The lecture starts at ";
+    if (start.hour < 10) {
         cout << setfill('0') << setw(2);
-        cout << start.hours << ":";
+        cout << start.hour << ":";
     }
     else {
-        cout << start.hours << ":";
+        cout << start.hour << ":";
     }
-    if (start.hours < 10) {
+    if (start.minute < 10) {
         cout << setfill('0') << setw(2);
-        cout << start.minutes << ":";
+        cout << start.minute << ":";
     } 
     else {
-        cout << start.minutes << ":";
+        cout << start.minute << ":";
     }
-    if (start.seconds < 10) {
+    if (start.second < 10) {
         cout << setfill('0') << setw(2);
-        cout << start.seconds;
+        cout << start.second;
     }
     else {
-        cout << start.seconds << ":";
+        cout << start.second << ":";
     }
-    cout << " and ends at ";
-    if (end.hours < 10) {
+    cout << " and finishes at ";
+    if (finish.hour < 10) {
         cout << setfill('0') << setw(2);
-        cout << end.hours << ":";
+        cout << finish.hour << ":";
     }
     else {
-        cout << end.hours << ":";
+        cout << finish.hour << ":";
     }
-    if (end.minutes < 10) {   
+    if (finish.minute < 10) {   
         cout << setfill('0') << setw(2);
-        cout << end.minutes << ":";
+        cout << finish.minute << ":";
     }
     else {
-        cout << end.minutes << ":";
+        cout << finish.minute << ":";
     }
-    if (end.seconds < 10) {
+    if (finish.second < 10) {
         cout << setfill('0') << setw(2);
-        cout << end.seconds << endl;
+        cout << finish.second << endl;
     }
     else {
-        cout << end.seconds << endl;
+        cout << finish.second << endl;
     }
 }
 
-int main() {
-Time temp, start, end;
-bool status;
-string usrTime;
-cout << "Enter the start time for the lecture (format is HH:MM:SS): ";
-getline(cin, usrTime);
-status = getTimeFromUser(temp, usrTime);
-if (status == false) {
-    cout << "Not a time." << endl;
-    exit(0);
-}
-start = temp;
-cout << "Enter the end time for the lecture (format is HH:MM:SS): ";
-getline(cin, usrTime);
-status = getTimeFromUser(temp, usrTime);
-if (status == false) {
-    cout << "Not a time." << endl;
-    exit(0);
-}
-end = temp;
-print24hour(start, end);
+int main(){
+    bool status;
+
+    string usrTime;
+    cout << "Please Enter Start Time: ";
+    getline(cin,usrTime);
+
+    status = getTimeFromUser(temp, usrTime);
+
+    if (status == false){
+        cout << "ERROR, INCORRECT Time!!!" << endl;
+        return 0;
+    }
+    start = temp;
+
+    cout << "Please Enter Finish Time: ";
+    getline(cin,usrTime);
+
+    status = getTimeFromUser(temp, usrTime);
+
+    if (status == false){
+        cout << "ERROR, INCORRECT Time!!!" << endl;
+        return 0;
+    }
+    finish = temp;
+
+    print24Hour(start,finish);
+    return 0;
 }

@@ -1,160 +1,194 @@
 #include <iostream>
-#include <fstream>
 #include <string>
 #include <iomanip>
-using namespace std;
-struct Time
-{
-    int hours;
-    int minutes;
-    int seconds;
-};
-struct Course {
+#include <fstream>
+#include <cmath>
 
-    string name;
+using namespace std;
+
+struct Time{
+    int hour;
+    int minute;
+    int second;
+};
+
+struct Course{
+    int name;
     int credits;
     bool majorRequirement;
     double avgGrade;
     string days;
     Time startTime;
-    Time endTime;
-
+    Time finishTime;   
 };
-void getTimeFromUser(Time &temp, string usrTime) {
-string usrHours = usrTime.substr(0,2);
-string usrMinutes = usrTime.substr(3,2);
-string usrSeconds = usrTime.substr(6,7);
 
-int numHours = atoi(usrHours.c_str());
-int numMinutes = atoi(usrMinutes.c_str());
-int numSeconds = atoi(usrSeconds.c_str());
+bool getTimeFromUser(Time &temp, string usrTime) {
 
-temp.hours = numHours;
-temp.minutes = numMinutes;
-temp.seconds = numSeconds;
+string usrHour = usrTime.substr(0,2);
+string usrMinute = usrTime.substr(3,2);
+string usrSecond = usrTime.substr(6,7);
+
+int numHour = atoi(usrHour.c_str());
+int numMinute = atoi(usrMinute.c_str());
+int numSecond = atoi(usrSecond.c_str());
+
+if (numHour < 0 || numHour > 24) {
+    return false;
 }
-void print24hour (Time start, Time end) {
-    cout << "The lecture starts at " ;
-    if (start.hours < 10) {
-        cout << setfill('0') << setw(2);
-        cout << start.hours << ":";
+if (numMinute < 0 || numMinute > 60) {
+    return false; 
+}
+if (numSecond < 0 || numSecond > 60) {
+    return false;
+}
+temp.hour = numHour;
+temp.minute = numMinute;
+temp.second = numSecond;
+return true;
+}
+
+void print24Hour(Time start, Time finish){
+    bool sPm = false;
+    bool fPm = false;
+
+    if (start.hour > 12){
+        start.hour = start.hour - 12;
+        sPm = true;
     }
-    else {
-        cout << start.hours << ":";
+    if (finish.hour > 12){
+        finish.hour = finish.hour - 12;
+        fPm = true;
     }
-    if (start.hours < 10) {
+    if (start.hour < 10){
         cout << setfill('0') << setw(2);
-        cout << start.minutes << ":";
+        cout << start.hour << ":";
+    }
+    else{
+        cout << start.hour << ":";
+    }
+    if (start.minute < 10){
+        cout << setfill('0') << setw(2);
+        cout << start.minute << ":";
     } 
-    else {
-        cout << start.minutes << ":";
+    else{
+        cout << start.minute << ":";
     }
-    if (start.seconds < 10) {
+    if (start.second < 10){
         cout << setfill('0') << setw(2);
-        cout << start.seconds;
+        cout << start.second;
     }
-    else {
-        cout << start.seconds << ":";
+    else{
+        cout << start.second;
     }
-    cout << " and ends at ";
-    if (end.hours < 10) {
+    if (sPm == true){
+        cout << "pm";
+    }
+    else{
+        cout << "am";
+    }
+    cout << " - ";
+    if (finish.hour < 10){
         cout << setfill('0') << setw(2);
-        cout << end.hours << ":";
+        cout << finish.hour << ":";
     }
-    else {
-        cout << end.hours << ":";
+    else{
+        cout << finish.hour << ":";
     }
-    if (end.minutes < 10) {   
+    if (finish.minute < 10){   
         cout << setfill('0') << setw(2);
-        cout << end.minutes << ":";
+        cout << finish.minute << ":";
     }
-    else {
-        cout << end.minutes << ":";
+    else{
+        cout << finish.minute << ":";
     }
-    if (end.seconds < 10) {
+    if (finish.second < 10){
         cout << setfill('0') << setw(2);
-        cout << end.seconds << endl;
+        cout << finish.second;
     }
-    else {
-        cout << end.seconds << endl;
+    else{
+        cout << finish.second;
+    }
+    if (fPm == true){
+        cout << "pm" << endl;
+    }
+    else{
+        cout << "am" << endl;
     }
 }
-int wordCount()
-{
-    int count = 0;
+
+int main(){
+    int counter = 0;
+    string* arr;
     string line;
-    ifstream file("in.txt");
-    while (getline(file, line))
-    {
-        count++;
+    bool status;
+
+    ifstream input;
+
+    input.open("in.txt");
+    
+    if(input.is_open()){
+        while(!input.eof()){
+            getline(input,line);
+            counter++;
+        }
     }
-    file.close();
-    return count;
-}
-void wordsIn(string words[], int size)
-{
-    string line;
-    ifstream file("in.txt");
-    for (int i = 0; i < size; i++)
-    {
+
+    input.close();
+
+    arr = new string[counter];
+
+    input.open("in.txt");
+
+    if(input.is_open()){
+        for (int j = 0;j < counter; j++){
+            getline(input,line);
+            arr[j] = line;
+        }
+    }
+
+    input.close();
+
+    if (counter == 0){
+        cout << "ERROR, THERE IS NO DATA IN THE IN.TXT FILE!!!" << endl;
+        return 0;
+    }
+
+    int courseNum = atoi(arr[0].c_str());
+    
+    if (counter != courseNum*7 + 1){
+        return 0;
+    }
+
+    cout << "=========================" << endl << "SCHEDULE OF STUDENT" << endl << "=========================" << endl;
+
+    for (int i = 0; i < courseNum; i++){
+        cout << "COURSE " << i + 1 << ": " << arr[i * 7 + 1] << endl;
+
+        if (atoi(arr[i * 7 + 3].c_str())){
+            cout << "NOTE: This course is a major requirement..." << endl;
+        }
+        else{
+            cout << "NOTE: This course is NOT a major requirement..." << endl;
+        }
+
+        cout << "Number of Credits: " << arr[i * 7 + 2] << endl;
+
+        cout << "Lecture Day(s): " << arr[i * 7 + 5] << endl;
+
+        Time start;
+        Time finish;
+        cout << "Lecture Times: ";
         
-        getline(file, line);
-        words[i] = line;
+        if (getTimeFromUser(start,arr[i * 7 + 6]) && getTimeFromUser(finish,arr[i * 7 + 7])){
+            print24Hour(start,finish);
+        }
+        else{
+            cout << "ERROR, INVALID TIME!!!" << endl;
+        }
+
+        cout << "Stat: on average student gets " << atof(arr[i * 7 + 4].c_str()) << "% in this course." << endl;
+        cout << "=================================================="<< endl;
     }
-    file.close();
-}
-void courseIn(string words[], int size)
-{
-    string line;
-    ifstream file("in.txt");
-    for (int i = 0; i < size; i++)
-    {
-        getline(file, line);
-        words[i] = line;
-        cout << words[i] << endl;
-    }
-    file.close();
-}
-void courseMake(string words[], int size, Course &c) {
-    for (int i = 0;i < size; i++) {
-        if (i == 0) {
-            c.name = words[i];
-            cout << c.name << endl;
-        }
-        if (i == 1) {
-            int creditss = atoi(words[i].c_str());
-            c.credits = creditss;
-            cout << c.credits << endl;
-        }
-        if (i == 2) {
-            bool mReq = atoi(words[i].c_str());
-            c.majorRequirement = mReq;
-            cout << c.majorRequirement << endl;
-        }
-        if (i == 3) {
-            float avgG = atof(words[i].c_str());
-            c.avgGrade = avgG;
-            cout << c.avgGrade << endl;
-        }
-        if (i == 4) {
-            c.days = words[i];
-            cout << c.days << endl;
-        }
-    }
-}
-int main() {
-Time temp;
-Course c;
-bool status;
-string usrTime;
-int size = wordCount();
-string * words;
-words = new string[size];
-courseIn(words, size);
-courseMake(words, size, c);
-getTimeFromUser(temp, usrTime);
-c.startTime = temp;
-getTimeFromUser(temp, usrTime);
-c.endTime = temp;
-print24hour(c.startTime, c.endTime);
+
+    return 0;
 }
