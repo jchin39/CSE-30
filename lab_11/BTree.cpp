@@ -27,11 +27,7 @@ Node *BTree::search(int key) {
     return search(key, root);
 }
 Node *BTree::BTree_root() {
-    Node *newNode = new Node;
-    newNode = root;
-    newNode ->left = new Node;
-    newNode -> right = new Node;
-    return newNode;
+return root;
 }
 void BTree::destroy_tree(Node* leaf) {
     if (leaf!= NULL) {
@@ -52,7 +48,7 @@ void BTree::insert(int key, Node* leaf) {
             leaf->left->right = NULL;
         }
     }
-    if (key > leaf -> key_value) {
+    else if (key >= leaf -> key_value) {
         if (leaf->right != NULL) {
             insert(key, leaf->right);
         }
